@@ -2,8 +2,10 @@ package br.com.brunocontentedev.catalog.controller;
 
 import br.com.brunocontentedev.catalog.dto.ProductDTO;
 import br.com.brunocontentedev.catalog.service.ProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,9 +38,15 @@ public class ProductController {
         return productService.updateProductById(productId, productDTO);
     }
 
-//    @GetMapping
-//    public Page<ProductDTO> findAllProducts(Pageable pageable) {
-//        return productService.findAllProducts(pageable);
-//    }
+    @GetMapping
+    public Page<ProductDTO> findAllProductsPageable(
+            ProductDTO productDTO,
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
+            @RequestParam(value = "sort", required = false, defaultValue = "asc") String sort,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "name") String orderBy
+    ) {
+        return productService.findAllProductsPageable(productDTO, page, size, sort, orderBy);
+    }
 
 }
