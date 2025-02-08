@@ -34,3 +34,8 @@ catalog/.mvn/wrapper/maven-wrapper.properties
 catalog/.DS_Store
 .idea/olx.iml
 .DS_Store
+auth/.gitattributes
+auth/.mvn/wrapper/maven-wrapper.properties
+auth/HELP.md
+auth/mvnw
+auth/mvnw.cmd
