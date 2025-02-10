@@ -1,8 +1,10 @@
 package br.com.brunocontentedev.auth.controller;
 
-import br.com.brunocontentedev.auth.dto.UserDTO;
+import br.com.brunocontentedev.auth.dto.request.UserRegisterDTO;
+import br.com.brunocontentedev.auth.dto.response.UserResponseDTO;
 import br.com.brunocontentedev.auth.exception.UserAlreadyExistsException;
 import br.com.brunocontentedev.auth.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO saveUser(@RequestBody UserDTO userDTO) throws UserAlreadyExistsException {
+    public UserResponseDTO saveUser(@RequestBody @Valid UserRegisterDTO userDTO) throws UserAlreadyExistsException {
         return userService.save(userDTO);
     }
 }

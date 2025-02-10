@@ -1,6 +1,7 @@
 package br.com.brunocontentedev.auth.service;
 
-import br.com.brunocontentedev.auth.dto.UserDTO;
+import br.com.brunocontentedev.auth.dto.request.UserRegisterDTO;
+import br.com.brunocontentedev.auth.dto.response.UserResponseDTO;
 import br.com.brunocontentedev.auth.entity.UserEntity;
 import br.com.brunocontentedev.auth.exception.UserAlreadyExistsException;
 import br.com.brunocontentedev.auth.mapper.UserMapper;
@@ -21,7 +22,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDTO save(UserDTO userDTO) throws UserAlreadyExistsException {
+    public UserResponseDTO save(UserRegisterDTO userDTO) throws UserAlreadyExistsException {
         if(userRepository.existsByEmail(userDTO.email())){
             throw UserAlreadyExistsException.alreadyExists("User already exists");
         }
@@ -31,6 +32,6 @@ public class UserService {
         userEntity.setPassword(passwordEncoder.encode(userDTO.password()));
 
         userRepository.save(userEntity);
-        return  UserMapper.INSTANCE.toDTO(userEntity);
+        return UserMapper.INSTANCE.toDTO(userEntity);
     }
 }

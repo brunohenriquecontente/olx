@@ -1,6 +1,7 @@
 package br.com.brunocontentedev.auth.mapper;
 
-import br.com.brunocontentedev.auth.dto.UserDTO;
+import br.com.brunocontentedev.auth.dto.request.UserRegisterDTO;
+import br.com.brunocontentedev.auth.dto.response.UserResponseDTO;
 import br.com.brunocontentedev.auth.entity.UserEntity;
 
 import org.mapstruct.Mapper;
@@ -11,8 +12,11 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    UserEntity toEntity(UserDTO userDTO);
+    UserEntity toEntity(UserRegisterDTO userDTO);
 
-    UserDTO toDTO(UserEntity userEntity);
+    UserEntity toEntity(UserResponseDTO userDTO);
+
+    UserResponseDTO toDTO(UserEntity userEntity);
+
 
 }
