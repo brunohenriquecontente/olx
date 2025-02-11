@@ -2,6 +2,8 @@ package br.com.brunocontentedev.catalog.service;
 
 import br.com.brunocontentedev.catalog.dto.ProductDTO;
 import br.com.brunocontentedev.catalog.entity.ProductEntity;
+import br.com.brunocontentedev.catalog.exception.Issue;
+import br.com.brunocontentedev.catalog.exception.ProductNotFoundException;
 import br.com.brunocontentedev.catalog.mapper.ProductMapper;
 import br.com.brunocontentedev.catalog.repository.ProductRepository;
 import org.springframework.data.domain.*;
@@ -24,8 +26,9 @@ public class ProductService {
         return ProductMapper.INSTANCE.toDTO(productEntity);
     }
 
-    public ProductDTO findProductById(UUID productId) {
-        ProductEntity productEntity = productRepository.findById(productId).orElseThrow();
+    public ProductDTO findProductById(UUID productId) throws ProductNotFoundException {
+        ProductEntity productEntity = productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException(new Issue("Product not found", 404)));
+
         return ProductMapper.INSTANCE.toDTO(productEntity);
     }
 

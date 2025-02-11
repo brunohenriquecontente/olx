@@ -1,11 +1,14 @@
 package br.com.brunocontentedev.catalog.controller;
 
 import br.com.brunocontentedev.catalog.dto.ProductDTO;
+import br.com.brunocontentedev.catalog.exception.ProductNotFoundException;
 import br.com.brunocontentedev.catalog.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,7 +29,8 @@ public class ProductController {
             tags = {"product"}
     )
     @PostMapping
-    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductDTO saveProduct(@RequestBody @Valid ProductDTO productDTO) {
         return productService.saveProduct(productDTO);
     }
 
@@ -36,7 +40,8 @@ public class ProductController {
             tags = {"product"}
     )
     @GetMapping(value = "{productId}")
-    public ProductDTO findProductById(@PathVariable UUID productId) {
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO findProductById(@PathVariable UUID productId) throws ProductNotFoundException {
         return productService.findProductById(productId);
     }
 
@@ -46,6 +51,7 @@ public class ProductController {
             tags = {"product"}
     )
     @DeleteMapping(value = "{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProductById(@PathVariable UUID productId) {
         productService.deleteById(productId);
     }
@@ -56,6 +62,7 @@ public class ProductController {
             tags = {"product"}
     )
     @PutMapping(value = "{productId}")
+    @ResponseStatus(HttpStatus.OK)
     public ProductDTO updateProductById(@PathVariable UUID productId, @RequestBody ProductDTO productDTO) {
         return productService.updateProductById(productId, productDTO);
     }
@@ -72,6 +79,7 @@ public class ProductController {
                     @Parameter(name = "orderBy", description = "Order by", required = false)
             }
     )
+    @ResponseStatus(HttpStatus.OK)
     public Page<ProductDTO> findAllProductsPageable(
             @ParameterObject ProductDTO productDTO,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
