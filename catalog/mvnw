@@ -77,7 +77,9 @@ set_java_home() {
     fi
   fi
 }
-
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+export LANGUAGE=C.UTF-8
 # hash string like Java String::hashCode
 hash_string() {
   str="${1:-}" h=0
