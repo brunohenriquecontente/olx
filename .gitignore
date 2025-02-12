@@ -28,14 +28,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-catalog/mvnw.cmd
-catalog/mvnw
-catalog/.mvn/wrapper/maven-wrapper.properties
 catalog/.DS_Store
 .idea/olx.iml
 .DS_Store
 auth/.gitattributes
-auth/.mvn/wrapper/maven-wrapper.properties
 auth/HELP.md
 auth/mvnw
-auth/mvnw.cmd
+
