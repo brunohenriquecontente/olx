@@ -6,6 +6,7 @@ import br.com.brunocontentedev.catalog.exception.Issue;
 import br.com.brunocontentedev.catalog.exception.ProductNotFoundException;
 import br.com.brunocontentedev.catalog.mapper.ProductMapper;
 import br.com.brunocontentedev.catalog.repository.ProductRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class ProductService {
         return ProductMapper.INSTANCE.toDTO(productEntity);
     }
 
+    @Cacheable(value = "products", key = "#productDTO.productId() + '-' + #page + '-' + #size + '-' + #sort + '-' + #orderBy")
     public Page<ProductDTO> findAllProductsPageable(ProductDTO productDTO, int page, int size, String sort, String orderBy) {
         Sort.Direction direction =   "desc".equalsIgnoreCase(sort) ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, orderBy));

@@ -4,9 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public record ProductDTO(
+public record ProductDTO (
                           UUID productId,
 
                           @NotNull(message = "Name is required")
@@ -19,5 +20,5 @@ public record ProductDTO(
                           @NotNull(message = "Description is required")
                           @NotBlank(message = "Description is required")
                           String description
-) {
+) implements Serializable {
 }
